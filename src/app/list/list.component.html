@@ -1,0 +1,53 @@
+<div>
+  <h1 id="h01"> To-Do Application </h1>
+</div>
+
+<div class="d01">
+  <div>
+    <input type="text" name="task" placeholder="Enter your To-do" #taskInput>
+  </div>
+  <div>
+    <button (click)="addTask(taskInput.value)">Add</button>
+  </div>
+</div>
+
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>To-Do list</th> 
+        
+      </tr>
+    </thead>
+    <tbody>
+        
+      <tr *ngFor="let task of tasks;let idx=index">
+        <td *ngIf="task.is_completed; else elseTd">
+          <s> {{task.title }} </s>
+        </td>
+        <ng-template #elseTd>
+          <td>
+            {{task.title}}
+          </td>
+        </ng-template>
+        <td>
+          <button (click)="cancelTask(idx)"> Complete </button>
+          <button (click)="deleteTask(idx)"> Delete </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <button (click)="clearToDo()">Clear</button>
+        <button (click)="setFilter('all') ">ALL</button>
+        <button (click)="setFilter('completed')">COMPLETED</button>
+        <button (click)="setFilter('active')">ACTIVE</button>       
+      </tr>
+      <tr *ngFor="let task of tasks|Filterdata:current_filter;let idx=index">
+        <td >
+        {{task.title }}
+          </td>
+         </tfoot>
+         </table>
+</div>
